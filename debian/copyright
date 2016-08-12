@@ -48,6 +48,7 @@ Files: src/qt/res/icons/add.png
        src/qt/res/icons/transaction*.png
        src/qt/res/icons/tx_output.png
        src/qt/res/icons/warning.png
+       src/qt/res/src/chart.svg
 Copyright: Stephen Hutchings (and more)
            http://typicons.com
 License: Expat
