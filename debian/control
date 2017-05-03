@@ -1,8 +1,8 @@
 Source: bitcoin
 Section: utils
 Priority: optional
-Maintainer: Matt Corallo <matt@mattcorallo.com>
-Uploaders: Matt Corallo <matt@mattcorallo.com>
+Maintainer: Luke Dashjr <luke-jr+PPA@utopios.org>
+Uploaders: Luke Dashjr <luke-jr+PPA@utopios.org>
 Build-Depends: debhelper,
  devscripts,
  automake,
@@ -30,9 +30,9 @@ Build-Depends: debhelper,
  libzmq3-dev,
  dh-systemd
 Standards-Version: 3.9.2
-Homepage: https://bitcoincore.org/
-Vcs-Git: git://github.com/bitcoin/bitcoin.git
-Vcs-Browser: https://github.com/bitcoin/bitcoin
+Homepage: https://bitcoinknots.org/
+Vcs-Git: git://github.com/bitcoinknots/bitcoin.git
+Vcs-Browser: https://github.com/bitcoinknots/bitcoin
 
 Package: bitcoind
 Architecture: any
