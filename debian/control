@@ -24,6 +24,8 @@ Build-Depends: debhelper,
  qttools5-dev-tools, qttools5-dev,
  libqrencode-dev,
  libprotobuf-dev, protobuf-compiler,
+ librsvg2-bin,
+ imagemagick,
  python,
  libzmq3-dev,
  dh-systemd
