@@ -1,8 +1,8 @@
 Source: bitcoin
 Section: utils
 Priority: optional
-Maintainer: Matt Corallo <matt@mattcorallo.com>
-Uploaders: Matt Corallo <matt@mattcorallo.com>
+Maintainer: Luke Dashjr <luke+bitcoin+deb@dashjr.org>
+Uploaders: Luke Dashjr <luke+bitcoin+deb@dashjr.org>
 Build-Depends: debhelper,
  devscripts,
  automake,
