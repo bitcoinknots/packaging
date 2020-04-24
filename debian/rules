@@ -22,9 +22,7 @@ ifeq ($(findstring aarch64,$(shell uname -m)),aarch64)
 endif
 # After 18.04 Ubuntu went back to Gnome Shell, which shouldn't be broken
 ifneq ($(findstring xenial,$(shell cat /etc/os-release)),xenial)
-	ifneq ($(findstring trusty,$(shell cat /etc/os-release)),trusty)
-		QT=qt5
-	endif
+	QT=qt5
 endif
 
 # Yea, autogen should be run on the source archive, but I like doing git archive
