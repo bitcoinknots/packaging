@@ -26,7 +26,7 @@ Build-Depends: debhelper,
  imagemagick,
  python3 | python,
  libzmq3-dev,
- dh-systemd
+ debhelper (>= 10~) | dh-systemd
 Standards-Version: 3.9.2
 Homepage: https://bitcoinknots.org/
 Vcs-Git: git://github.com/bitcoinknots/bitcoin.git
