@@ -1,0 +1,59 @@
+#!/bin/sh -e
+
+# NOTE: This script is run as both config and preinst
+
+my_action=
+
+case "$1" in
+configure)
+	if [ "$2" = "" ]; then
+		my_action=new_install
+	else
+		my_action=upgrade
+	fi
+	;;
+install) my_action=new_install; ;;
+upgrade) my_action=upgrade; ;;
+esac
+
+case "$my_action" in
+new_install)
+	# New install - just accept all established protocol changes, as they're not changes for us
+	. /usr/share/debconf/confmodule
+	db_set bitcoin/taproot true
+	;;
+upgrade)
+	# Downgrading, upgrading or reinstalling. Check that taproot is okay.
+	. /usr/share/debconf/confmodule
+	
+	db_get bitcoin/taproot
+	if [ "$RET" = "false" ]; then
+		# User said no at some point before
+		# Can't install under those conditions, so ask again
+		db_fset bitcoin/taproot seen false
+	fi
+	if [ "$RET" != "true" ]; then
+		db_input critical bitcoin/taproot || true
+		db_go
+		
+		if ! db_get bitcoin/taproot; then
+			# Failed to ask user. Abort
+			echo '' >&2
+			echo "This version only supports Taproot-enforced Bitcoin." >&2
+			echo "Try 'dpkg-reconfigure debconf' to select a frontend other than noninteractive" >&2
+			echo "to confirm your consent." >&2
+			echo '' >&2
+			exit 1
+		fi
+		if [ "$RET" = "false" ]; then
+			# User answered no. Abort
+			echo '' >&2
+			echo "This version only supports Taproot-enforced Bitcoin." >&2
+			echo "Upgrade aborted." >&2
+			echo "NOTE: Old versions are insecure in any scenario. To reject Taproot, you need to find or create an anti-Taproot upgrade." >&2
+			echo '' >&2
+			exit 1
+		fi
+	fi
+	;;
+esac
