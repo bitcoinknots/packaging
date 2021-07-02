@@ -8,6 +8,7 @@ BCUSER="bitcoin"
 BCHOME="/var/lib/bitcoin"
 
 if [ "$1" = "purge" ]; then
+{
 
 	# The bitcoin user is left in place for now - This is to ensure that a new user
 	# will not inherit the users UID/GID and inadvertently gain access to wallets etc
@@ -27,7 +28,7 @@ if [ "$1" = "purge" ]; then
 	echo "#  by running: sudo userdel -r ${BCUSER}"
 	echo "#"
 	echo
-
+} >&2  # stdout is going to debconf, so make sure we use stderr here
 fi
 
 #DEBHELPER#
