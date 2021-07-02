@@ -7,4 +7,6 @@ Description: Do you accept the Taproot protocol change for Bitcoin?
  Protocol changes require user consent to be effective, and if enforced inconsistently within the community may compromise your security or others!
  If you do not know what you are doing, learn more before November.
  (You must make a decision either way - old versions are insecure in all scenarios.)
+ .
  To learn more, see https://bitcointaproot.cc
+ (note that installing this package does NOT get the community Taproot Client on the webpage, only mainline Bitcoin Core)
