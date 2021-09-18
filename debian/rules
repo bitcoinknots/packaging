@@ -12,10 +12,17 @@ override_dh_auto_clean:
 	if [ -f Makefile ]; then $(MAKE) distclean; fi
 	rm -rf Makefile.in aclocal.m4 configure src/Makefile.in src/bitcoin-config.h.in src/build-aux src/qt/Makefile.in src/qt/test/Makefile.in src/test/Makefile.in
 
+EXTRA_CONF =
+ifeq ($(shell g++ -dumpversion),9)
+	# Needed on Ubuntu focal to avoid buggy GCC 9
+	# See also: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=95189
+	EXTRA_CONF += CC=gcc-10 CXX=g++-10
+endif
+
 # Yea, autogen should be run on the source archive, but I like doing git archive
 override_dh_auto_configure:
 	./autogen.sh
-	./configure
+	./configure $(EXTRA_CONF)
 
 override_dh_auto_test:
 	make check
