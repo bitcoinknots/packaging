@@ -7,8 +7,10 @@ Build-Depends: debhelper,
  devscripts,
  automake,
  libtool,
+ g++ (>= 4:10.3.0) | g++ (<< 4:9) | g++-10,
  bash-completion,
  libdb4.8++-dev,
+ libsqlite3-dev,
  libssl-dev,
  pkg-config,
  libevent-dev,
@@ -19,6 +21,7 @@ Build-Depends: debhelper,
  libboost-test1.48-dev | libboost-test-dev (>> 1.47),
  libboost-chrono1.48-dev | libboost-chrono-dev (>> 1.47),
  libminiupnpc8-dev | libminiupnpc-dev,
+ libnatpmp-dev,
  qttools5-dev-tools, qttools5-dev,
  libqrencode-dev,
  libprotobuf-dev, protobuf-compiler,
@@ -72,3 +75,16 @@ Description: peer-to-peer digital currency - standalone transaction tool
  This package provides bitcoin-tx, a command-line transaction creation
  tool which can be used without a bitcoin daemon.  Some means of
  exchanging minimal transaction data with peers is still required.
+
+Package: bitcoin-wallet
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: peer-to-peer digital currency - standalone wallet tool
+ Bitcoin is a free open source peer-to-peer electronic cash system that
+ is completely decentralized, without the need for a central server or
+ trusted parties.  Users hold the crypto keys to their own money and
+ transact directly with each other, with the help of a P2P network to
+ check for double-spending.
+ .
+ This package provides bitcoin-wallet, a command-line wallet manipulation
+ tool which can be used without a bitcoin daemon.
