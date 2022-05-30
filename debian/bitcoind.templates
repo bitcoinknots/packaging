@@ -3,10 +3,7 @@ Type: boolean
 Description: Do you accept the Taproot protocol change for Bitcoin?
  CAUTION: BITCOIN PROTOCOL CHANGE INCLUDED
  .
- This release adds enforcement of the Taproot protocol change to the Bitcoin rules, beginning in November.
+ This and all future versions enforce the Taproot protocol change to the Bitcoin rules, which activated in 2021 November without opposition.
  Protocol changes require user consent to be effective, and if enforced inconsistently within the community may compromise your security or others!
- If you do not know what you are doing, learn more before November.
- (You must make a decision either way - old versions are insecure in all scenarios.)
- .
- To learn more, see https://bitcointaproot.cc
- (note that installing this package does NOT get the community Taproot Client on the webpage, only mainline Bitcoin Core)
+ Since the community has activated Taproot, you must also enforce it to remain secure.
+ You must answer "yes" to upgrade to this version.

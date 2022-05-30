@@ -31,8 +31,7 @@ upgrade)
 		# User said no at some point before
 		# Can't install under those conditions, so ask again
 		db_fset bitcoin/taproot seen false
-	fi
-	if [ "$RET" != "true" ]; then
+		
 		db_input critical bitcoin/taproot || true
 		db_go
 		
@@ -54,6 +53,10 @@ upgrade)
 			echo '' >&2
 			exit 1
 		fi
+	fi
+	if [ "$RET" != "true" ]; then
+		# Taproot has activated without any opposition, so just accept it
+		db_set bitcoin/taproot true
 	fi
 	;;
 esac
