@@ -18,6 +18,10 @@ ifeq ($(shell g++ -dumpversion),9)
 	# See also: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=95189
 	EXTRA_CONF += CC=gcc-10 CXX=g++-10
 endif
+ifeq ($(shell g++ -dumpversion),7)
+	# Needed on Ubuntu bionic to avoid unsupported GCC 7
+	EXTRA_CONF += CC=gcc-8 CXX=g++-8
+endif
 
 # Yea, autogen should be run on the source archive, but I like doing git archive
 override_dh_auto_configure:
