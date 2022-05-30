@@ -27,6 +27,7 @@ Build-Depends: debhelper,
  libprotobuf-dev, protobuf-compiler,
  python3 | python,
  libzmq3-dev,
+ systemtap-sdt-dev,
  debhelper (>= 10~) | dh-systemd
 Standards-Version: 3.9.2
 Homepage: https://bitcoincore.org/
