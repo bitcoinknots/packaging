@@ -5,8 +5,7 @@ Maintainer: Luke Dashjr <luke-jr+PPA@utopios.org>
 Uploaders: Luke Dashjr <luke-jr+PPA@utopios.org>
 Build-Depends: debhelper,
  devscripts,
- automake,
- libtool,
+ cmake,
  g++ (>= 4:10.3.0) | g++-10 | g++-8,
  bash-completion,
  libdb4.8++-dev,
@@ -21,7 +20,6 @@ Build-Depends: debhelper,
  libboost-test1.48-dev | libboost-test-dev (>> 1.47),
  libboost-chrono1.48-dev | libboost-chrono-dev (>> 1.47),
  libminiupnpc8-dev | libminiupnpc-dev,
- libnatpmp-dev,
  qttools5-dev-tools, qttools5-dev,
  libqrencode-dev,
  libprotobuf-dev, protobuf-compiler,
@@ -30,7 +28,8 @@ Build-Depends: debhelper,
  python3 | python,
  libzmq3-dev,
  systemtap-sdt-dev,
- debhelper (>= 10~) | dh-systemd
+ debhelper (>= 10~) | dh-systemd,
+ xsltproc
 Standards-Version: 3.9.2
 Homepage: https://bitcoinknots.org/
 Vcs-Git: git://github.com/bitcoinknots/bitcoin.git

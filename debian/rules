@@ -9,28 +9,41 @@
 	dh --with bash-completion --with systemd $@
 
 override_dh_auto_clean:
-	if [ -f Makefile ]; then $(MAKE) distclean; fi
-	rm -rf Makefile.in aclocal.m4 configure src/Makefile.in src/bitcoin-config.h.in src/build-aux src/qt/Makefile.in src/qt/test/Makefile.in src/test/Makefile.in
+	rm -rf build
 
 EXTRA_CONF =
+EXTRA_CONF += -DBUILD_GUI=ON
+EXTRA_CONF += -DBUILD_UTIL=OFF
+EXTRA_CONF += -DWITH_BDB=ON
+EXTRA_CONF += -DWITH_MINIUPNPC=ON
+EXTRA_CONF += -DWITH_USDT=ON
+EXTRA_CONF += -DWITH_ZMQ=ON
+
 ifeq ($(shell g++ -dumpversion),9)
 	# Needed on Ubuntu focal to avoid buggy GCC 9
 	# See also: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=95189
-	EXTRA_CONF += CC=gcc-10 CXX=g++-10
+	EXTRA_CONF += -DCMAKE_C_COMPILER=gcc-10 -DCMAKE_CXX_COMPILER=g++-10
 endif
 ifeq ($(shell g++ -dumpversion),7)
 	# Needed on Ubuntu bionic to avoid unsupported GCC 7
-	EXTRA_CONF += CC=gcc-8 CXX=g++-8
+	EXTRA_CONF += -DCMAKE_C_COMPILER=gcc-8 -DCMAKE_CXX_COMPILER=g++-8
 endif
 
 # Yea, autogen should be run on the source archive, but I like doing git archive
 override_dh_auto_configure:
-	./autogen.sh
-	./configure $(EXTRA_CONF)
-	cp src/qt/res/src/bitcoin.svg bitcoinknots.svg
+	cmake -B build $(EXTRA_CONF)
+	xsltproc --novalid --nonet --path src/qt/res/src debian/flatten.xslt src/qt/res/src/bitcoin.svg > bitcoinknots.svg
+
+override_dh_auto_build:
+	CMAKE_BUILD_PARALLEL_LEVEL=2 \
+	cmake --build build --verbose
+
+override_dh_auto_install:
+	DESTDIR="$(CURDIR)" \
+	cmake --install build
 
 override_dh_auto_test:
-	make check
+	ctest --test-dir build
 
 # No SysV or Upstart init scripts included
 override_dh_installinit:
