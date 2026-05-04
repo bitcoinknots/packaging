@@ -20,43 +20,47 @@ case "$my_action" in
 new_install)
 	# New install - just accept all established protocol changes, as they're not changes for us
 	. /usr/share/debconf/confmodule
-	db_set bitcoin/taproot true
+	db_set bitcoin/rdts true
 	;;
 upgrade)
-	# Downgrading, upgrading or reinstalling. Check that taproot is okay.
+	# Downgrading, upgrading or reinstalling. Check that RDTS is okay.
 	. /usr/share/debconf/confmodule
 	
-	db_get bitcoin/taproot
+	db_get bitcoin/rdts
 	if [ "$RET" = "false" ]; then
 		# User said no at some point before
 		# Can't install under those conditions, so ask again
-		db_fset bitcoin/taproot seen false
-		
-		db_input critical bitcoin/taproot || true
-		db_go
-		
-		if ! db_get bitcoin/taproot; then
-			# Failed to ask user. Abort
-			echo '' >&2
-			echo "This version only supports Taproot-enforced Bitcoin." >&2
-			echo "Try 'dpkg-reconfigure debconf' to select a frontend other than noninteractive" >&2
-			echo "to confirm your consent." >&2
-			echo '' >&2
-			exit 1
-		fi
-		if [ "$RET" = "false" ]; then
-			# User answered no. Abort
-			echo '' >&2
-			echo "This version only supports Taproot-enforced Bitcoin." >&2
-			echo "Upgrade aborted." >&2
-			echo "NOTE: Old versions are insecure in any scenario. To reject Taproot, you need to find or create an anti-Taproot upgrade." >&2
-			echo '' >&2
-			exit 1
-		fi
+		db_fset bitcoin/rdts seen false
 	fi
 	if [ "$RET" != "true" ]; then
-		# Taproot has activated without any opposition, so just accept it
-		db_set bitcoin/taproot true
+		db_input critical bitcoin/rdts || true
+		db_go
+		
+		common_err() {
+			echo '' >&2
+			echo "This version of Bitcoin Knots applies the BIP110 (RDTS) network upgrade, which fixes critical vulnerabilities in long-standing network design, but $1." >&2
+			echo '' >&2
+			echo "Important: Because this upgrade already has broad community support, skipping or delaying this package update does not reject it. Running outdated software after any network upgrade only leaves your node vulnerable to displaying fake or fraudulent transactions. To effectively reject this upgrade, you need to run alternative software designed to split away from the upgraded network." >&2
+			echo '' >&2
+			echo "For more information, see: https://bitcoinknots.org/learn/2026-rdts" >&2
+			echo '' >&2
+		}
+		
+		if ! db_get bitcoin/rdts || [ -z "$RET" ]; then
+			# Failed to ask user. Abort
+			common_err 'explicit user confirmation has not been configured'
+			echo "Try 'dpkg-reconfigure debconf' to select a frontend other than noninteractive" >&2
+			echo "to confirm this upgrade." >&2
+			echo '' >&2
+			exit 1
+		fi
+		if [ "$RET" = "false" ] || [ "$RET" = "no" ]; then
+			# User answered no. Abort
+			common_err 'you have chosen to reject it'
+			echo "Upgrade aborted." >&2
+			echo '' >&2
+			exit 1
+		fi
 	fi
 	;;
 esac

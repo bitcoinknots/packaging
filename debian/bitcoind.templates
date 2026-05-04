@@ -1,9 +1,10 @@
-Template: bitcoin/taproot
+Template: bitcoin/rdts
 Type: boolean
-Description: Do you accept the Taproot protocol change for Bitcoin?
- CAUTION: BITCOIN PROTOCOL CHANGE INCLUDED
+Description: Update and apply the BIP110 (RDTS) network upgrade?
+ Important: BIP110/RDTS Network Upgrade
  .
- This and all future versions enforce the Taproot protocol change to the Bitcoin rules, which activated in 2021 November without opposition.
- Protocol changes require user consent to be effective, and if enforced inconsistently within the community may compromise your security or others!
- Since the community has activated Taproot, you must also enforce it to remain secure.
- You must answer "yes" to upgrade to this version.
+ This version of Bitcoin Knots applies the BIP110 (RDTS) network upgrade, which fixes critical vulnerabilities in long-standing network design. By proceeding with this installation, you are explicitly adopting this upgrade.
+ .
+ For more information, see: https://bitcoinknots.org/learn/2026-rdts
+ .
+ Important: Because this upgrade already has broad community support, skipping or delaying this package update does not reject it. Running outdated software after any network upgrade only leaves your node vulnerable to displaying fake or fraudulent transactions. To effectively reject this upgrade, you need to run alternative software designed to split away from the upgraded network.
