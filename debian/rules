@@ -29,7 +29,6 @@ ifeq ($(shell g++ -dumpversion),7)
 	EXTRA_CONF += -DCMAKE_C_COMPILER=gcc-8 -DCMAKE_CXX_COMPILER=g++-8
 endif
 
-# Yea, autogen should be run on the source archive, but I like doing git archive
 override_dh_auto_configure:
 	cmake -B build $(EXTRA_CONF)
 	xsltproc --novalid --nonet --path src/qt/res/src debian/flatten.xslt src/qt/res/src/bitcoin.svg > bitcoinknots.svg
