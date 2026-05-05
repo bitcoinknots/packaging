@@ -7,10 +7,10 @@ for Debian-based Linux systems. If you compile bitcoind/bitcoin-qt yourself, the
 ## bitcoin: URI support ##
 
 
-bitcoin-qt.desktop  (Gnome / Open Desktop)
+org.bitcoin.bitcoin-qt.desktop  (Gnome / Open Desktop)
 To install:
 
-	sudo desktop-file-install bitcoin-qt.desktop
+	sudo desktop-file-install org.bitcoin.bitcoin-qt.desktop
 	sudo update-desktop-database
 
 If you build yourself, you will either need to modify the paths in
