@@ -1,2 +1,2 @@
-usr/local/bin/bitcoin-tx usr/bin
+usr/bin/bitcoin-tx usr/bin
 contrib/completions/fish/bitcoin-tx.fish	usr/share/fish/vendor_completions.d

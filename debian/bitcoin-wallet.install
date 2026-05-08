@@ -1,2 +1,2 @@
-usr/local/bin/bitcoin-wallet usr/bin
+usr/bin/bitcoin-wallet usr/bin
 contrib/completions/fish/bitcoin-wallet.fish	usr/share/fish/vendor_completions.d

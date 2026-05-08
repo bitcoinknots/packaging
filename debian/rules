@@ -12,6 +12,7 @@ override_dh_auto_clean:
 	rm -rf build
 
 EXTRA_CONF =
+EXTRA_CONF += -D CMAKE_INSTALL_PREFIX=/usr
 EXTRA_CONF += -DBUILD_GUI=ON
 EXTRA_CONF += -DBUILD_UTIL=OFF
 EXTRA_CONF += -DWITH_BDB=ON
