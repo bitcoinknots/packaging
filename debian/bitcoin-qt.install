@@ -2,6 +2,6 @@ usr/bin/bitcoin-qt usr/bin
 share/pixmaps/bitcoin32.xpm usr/share/pixmaps
 share/pixmaps/bitcoin16.xpm usr/share/pixmaps
 share/pixmaps/bitcoin128.png usr/share/pixmaps
-bitcoinknots.svg usr/share/icons/hicolor/scalable/apps
+build/bitcoinknots.svg usr/share/icons/hicolor/scalable/apps
 debian/org.bitcoin.bitcoin-qt.desktop usr/share/applications
 contrib/completions/fish/bitcoin-qt.fish usr/share/fish/vendor_completions.d

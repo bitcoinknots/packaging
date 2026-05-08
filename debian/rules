@@ -1,10 +1,6 @@
 #!/usr/bin/make -f
 # -*- mode: makefile; coding: utf-8 -*-
 
-#DEB_MAKE_CHECK_TARGET = test_bitcoin
-#build/bitcoind::
-#	$(if $(filter nocheck,$(DEB_BUILD_OPTIONS)),,src/test_bitcoin)
-
 %:
 	dh --with bash-completion --with systemd $@
 
@@ -20,6 +16,7 @@ EXTRA_CONF += -DWITH_BDB=ON
 EXTRA_CONF += -DWITH_MINIUPNPC=ON
 EXTRA_CONF += -DWITH_USDT=ON
 EXTRA_CONF += -DWITH_ZMQ=ON
+EXTRA_CONF += -D INSTALL_MAN=OFF  # let debhelper handle them
 
 ifeq ($(shell g++ -dumpversion),9)
 	# Needed on Ubuntu focal to avoid buggy GCC 9
@@ -33,7 +30,7 @@ endif
 
 override_dh_auto_configure:
 	cmake -B build $(EXTRA_CONF)
-	xsltproc --novalid --nonet --path src/qt/res/src debian/flatten.xslt src/qt/res/src/bitcoin.svg > bitcoinknots.svg
+	xsltproc --novalid --nonet --path src/qt/res/src debian/flatten.xslt src/qt/res/src/bitcoin.svg > $(CURDIR)/build/bitcoinknots.svg
 
 override_dh_auto_build:
 	CMAKE_BUILD_PARALLEL_LEVEL=2 \
@@ -46,11 +43,15 @@ override_dh_auto_build:
 		--overwrite
 
 override_dh_auto_install:
-	DESTDIR="$(CURDIR)" \
+	DESTDIR="$(CURDIR)/debian/tmp" \
 	cmake --install build
+	rm -vf "$(CURDIR)"/debian/tmp/usr/bin/test_*  # run, but not packaged
 
 override_dh_auto_test:
 	ctest --test-dir build
+
+override_dh_missing:
+	dh_missing --fail-missing
 
 # No SysV or Upstart init scripts included
 override_dh_installinit:
