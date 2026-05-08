@@ -35,6 +35,13 @@ override_dh_auto_configure:
 override_dh_auto_build:
 	CMAKE_BUILD_PARALLEL_LEVEL=2 \
 	cmake --build build --verbose
+	
+	mkdir "$(CURDIR)/build/tmp-home"
+	TOPDIR="$(CURDIR)" \
+	SHARE_EXAMPLES_DIR="$(CURDIR)/build" \
+	HOME="$(CURDIR)/build/tmp-home" \
+	contrib/devtools/gen-bitcoin-conf.sh
+	
 	mkdir -p build/completions/bash build/completions/zsh
 	test/functional/tool_cli_completion.py \
 		--configfile build/test/config.ini \

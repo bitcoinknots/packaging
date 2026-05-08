@@ -1,6 +1,6 @@
 usr/bin/bitcoind usr/bin
 usr/bin/bitcoin-cli usr/bin
-debian/examples/bitcoin.conf etc/bitcoin
+build/bitcoin.conf etc/bitcoin
 build/completions/zsh/_bitcoin-cli usr/share/zsh/vendor-completions
 contrib/completions/fish/bitcoin-cli.fish	usr/share/fish/vendor_completions.d
 contrib/completions/fish/bitcoind.fish	usr/share/fish/vendor_completions.d
