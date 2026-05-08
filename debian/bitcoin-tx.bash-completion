@@ -1,1 +1,1 @@
-contrib/bitcoin-tx.bash-completion	bitcoin-tx
+contrib/completions/bash/bitcoin-tx.bash	bitcoin-tx
